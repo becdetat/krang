@@ -5,10 +5,12 @@ $fn=50;
 use <functions.scad>;
 include <constants.scad>;
 
-revision = "2";
+revision = "3";
+
 difference() {
     union() {
         payload_base();
+        translate([0,belt_idler_id/2,0])
         belt_loop();
         translate([0,-(payload_x_buffer+payload_curve_diam/2),0])
         payload_arm_socket();

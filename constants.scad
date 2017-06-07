@@ -1,5 +1,7 @@
 // Shared constants
 
+belt_idler_id=12.14;
+
 // Carriage:
 carriage_thickness = 5;
 carriage_bearing_space_x = 60;
