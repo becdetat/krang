@@ -5,6 +5,7 @@ $fn=50;
 use <functions.scad>;
 include <constants.scad>;
 
+revision = "2";
 difference() {
     union() {
         payload_base();
@@ -15,6 +16,14 @@ difference() {
         payload_arm_socket();
     }
     payload_bolts();
+    revision_text();
+}
+
+module revision_text() {
+    translate([1,-9,payload_thickness-1])
+    rotate([0,0,90])
+    linear_extrude(height=1.1)
+    text(text=str("r",revision), size=4);
 }
 
 module payload_arm_socket() {
