@@ -1,5 +1,6 @@
 // Top plate
 $fn=100;
+include <constants.scad>;
 use <e2020.scad>;
 use <functions.scad>;
 
@@ -11,6 +12,12 @@ pillar_sleeve_height = 20;
 
 top_plate();
 
+color("blue")
+offset_on_angle(30, pillar_offset+15+0-pillar_sleeve_thickness+belt_offset_from_column)
+translate([0,0,5])
+rotate([0,0,30])
+translate([-5,-5,0])
+cube([10,10,5]);
 
 module top_plate() {
     difference() {

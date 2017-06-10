@@ -6,6 +6,8 @@ use <e2020.scad>;
 use <functions.scad>;
 include <constants.scad>;
 
+revision = "6";
+
 outer_bearing_sleeve_skirt_od = carriage_bearing_bolt_diam+carriage_inner_bearing_sleeve_thickness*2+carriage_outer_bearing_sleeve_height*2;
 carriage_mid_x = carriage_bearing_space_x/2;
 carriage_mid_y = carriage_bearing_space_y/2;
@@ -19,6 +21,15 @@ difference() {
     bearing_bolts();
     payload_bolts();
     cutout();
+    revision_text();
+}
+
+module revision_text() {
+    translate([-6,0,-0.1])
+    rotate([0,0,90])
+    linear_extrude(height=1.1)
+    mirror([1,0,0])
+    text(text=str("r",revision), size=4);
 }
 
 module cutout() {

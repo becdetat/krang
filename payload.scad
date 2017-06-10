@@ -5,7 +5,10 @@ $fn=50;
 use <functions.scad>;
 include <constants.scad>;
 
-revision = "3";
+revision = "4";
+
+beltloop_actual_gap = payload_belt_loop_gap + payload_belt_loop_cyl_diam;
+
 
 difference() {
     union() {
@@ -60,22 +63,29 @@ module payload_arm() {
 }
 
 module belt_loop() {
-    actual_gap = payload_belt_loop_gap + payload_belt_loop_cyl_diam;
     translate([
         payload_bolt_x/2,
         payload_bolt_y/2,
         payload_thickness])
     union() {
-        translate([-actual_gap/2,0,0])
-        cylinder(d=payload_belt_loop_cyl_diam,h=payload_belt_loop_height);
-        translate([actual_gap/2,0,0])
-        cylinder(d=payload_belt_loop_cyl_diam,h=payload_belt_loop_height);
-        hull() {
-            translate([-actual_gap/2,0,payload_belt_loop_height])
-            cylinder(d=payload_belt_loop_cyl_diam,h=payload_belt_loop_cap_height);
-            translate([actual_gap/2,0,payload_belt_loop_height]) 
-            cylinder(d=payload_belt_loop_cyl_diam,h=payload_belt_loop_cap_height);
+        belt_loop_bridge();
+        translate([0,0,payload_belt_loop_cap_height]) union() {
+            translate([-beltloop_actual_gap/2,0,0])
+            cylinder(d=payload_belt_loop_cyl_diam,h=payload_belt_loop_height);
+            translate([beltloop_actual_gap/2,0,0])
+            cylinder(d=payload_belt_loop_cyl_diam,h=payload_belt_loop_height);
+            translate([0,0,payload_belt_loop_height])
+            belt_loop_bridge();
         }
+    }
+}
+
+module belt_loop_bridge() {
+    hull() {
+        translate([-beltloop_actual_gap/2,0,0])
+        cylinder(d=payload_belt_loop_cyl_diam,h=payload_belt_loop_cap_height);
+        translate([beltloop_actual_gap/2,0,0]) 
+        cylinder(d=payload_belt_loop_cyl_diam,h=payload_belt_loop_cap_height);
     }
 }
 

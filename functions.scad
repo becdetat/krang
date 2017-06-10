@@ -20,3 +20,10 @@ module torus(id, od) {
     translate([id/2+(od - id)/4, 0, 0])
     circle(d = (od-id)/2);
 }
+
+// http://svn.clifford.at/openscad/trunk/libraries/shapes.scad
+// size is the XY plane size, height in Z
+module hexagon(size, height) {
+  boxWidth = size/1.75;
+  for (r = [-60, 0, 60]) rotate([0,0,r]) cube([boxWidth, size, height], true);
+}
