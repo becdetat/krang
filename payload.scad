@@ -5,7 +5,7 @@ $fn=50;
 use <functions.scad>;
 include <constants.scad>;
 
-revision = "4";
+revision = "5";
 
 beltloop_actual_gap = payload_belt_loop_gap + payload_belt_loop_cyl_diam;
 
@@ -28,7 +28,10 @@ module revision_text() {
     translate([1,-9,payload_thickness-1])
     rotate([0,0,90])
     linear_extrude(height=1.1)
-    text(text=str("r",revision), size=4);
+    text(
+        text=str("r",revision), 
+        size=4, 
+        font="Liberation Sans:style=Bold");
 }
 
 module payload_arm_socket() {
@@ -38,7 +41,8 @@ module payload_arm_socket() {
         payload_thickness
     ]) {
         payload_arm();
-        translate([0,payload_arm_width+payload_arm_socket_gap,0])
+        translate([payload_arm_length,payload_arm_width*2+payload_arm_socket_gap,0])
+        rotate([0,0,180])
         payload_arm();
     }
     
@@ -55,6 +59,18 @@ module payload_arm() {
             translate([payload_arm_length/2,payload_arm_width,payload_arm_height])
             rotate([90,0,0])
             cylinder(d=payload_arm_length,h=payload_arm_width);
+            
+            // brace
+            difference() {
+                translate([payload_arm_length/2,payload_arm_width,0])
+                cylinder(d1=payload_arm_length,d2=0,h=payload_arm_height*0.7);
+                translate([0,-payload_arm_length+0.1,-0.1])
+                cube([
+                    payload_arm_length+1,
+                    payload_arm_length,
+                    payload_arm_height+1
+                ]);
+            }
         }
         translate([payload_arm_length/2,payload_arm_width+0.1,payload_arm_height])
         rotate([90,0,0])
