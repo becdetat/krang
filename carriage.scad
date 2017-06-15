@@ -6,11 +6,11 @@ use <e2020.scad>;
 use <functions.scad>;
 include <constants.scad>;
 
-revision = "6";
+revision = "7";
 
 outer_bearing_sleeve_skirt_od = carriage_bearing_bolt_diam+carriage_inner_bearing_sleeve_thickness*2+carriage_outer_bearing_sleeve_height*2;
 carriage_mid_x = carriage_bearing_space_x/2;
-carriage_mid_y = carriage_bearing_space_y/2;
+carriage_mid_y = (carriage_bearing_space_y_adj)/2;
 
 difference() {
     union() {
@@ -62,13 +62,13 @@ module cutout() {
 }
 
 module payload_bolts() {
-    translate([carriage_mid_x+payload_bolt_x/2,carriage_mid_y-payload_bolt_y/2,0])
+    translate([carriage_mid_x+payload_bolt_x/2,carriage_mid_y-payload_bolt_y/2,-0.1])
     cylinder(d=3,h=carriage_thickness+0.2);
-    translate([carriage_mid_x-payload_bolt_x/2,carriage_mid_y-payload_bolt_y/2,0])
+    translate([carriage_mid_x-payload_bolt_x/2,carriage_mid_y-payload_bolt_y/2,-0.1])
     cylinder(d=3,h=carriage_thickness+0.2);
-    translate([carriage_mid_x+payload_bolt_x/2,carriage_mid_y+payload_bolt_y/2,0])
+    translate([carriage_mid_x+payload_bolt_x/2,carriage_mid_y+payload_bolt_y/2,-0.1])
     cylinder(d=3,h=carriage_thickness+0.2);
-    translate([carriage_mid_x-payload_bolt_x/2,carriage_mid_y+payload_bolt_y/2,0])
+    translate([carriage_mid_x-payload_bolt_x/2,carriage_mid_y+payload_bolt_y/2,-0.1])
     cylinder(d=3,h=carriage_thickness+0.2);
 }
 

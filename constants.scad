@@ -33,4 +33,4 @@ belt_offset_from_column = 0
     + carriage_thickness
     + payload_thickness
     + payload_belt_loop_cap_height
-    + 3.5;  // distance between 2020 and carriage, as measured
+    + 5.5;  // distance between 2020 and carriage, as measured. Ish.
